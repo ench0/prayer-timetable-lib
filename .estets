@@ -1,0 +1,41 @@
+module.exports = {
+    "globals": {
+        "fetch": false,
+        "navigationOptions": false
+    },
+    "extends": [
+        "airbnb-standard",
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "rules": {
+        "semi": "off",
+        "max-len": ["error", { "code": 180 }],
+        "brace-style": 0,
+        "no-return-assign": 0,
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "no-console": ["error", { "allow": ["warn", "error", "log"] }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/forbid-prop-types": 0,
+        "react/no-array-index-key": 0,
+        "indent": ["error", 2],
+        "comma-dangle": 0,
+        "react/display-name": 1,
+        "no-unused-vars": "warn",
+        "no-unexpected-multiline": "warn"
+    },
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    }
+}
