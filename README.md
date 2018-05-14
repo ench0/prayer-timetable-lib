@@ -1,1 +1,1 @@
-# prayer-timetable-lib
+This lib is used by prayer-timetable-react and future packages for convenient way to keep the prayer calculations separate from the design logic.
