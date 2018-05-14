@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "homepage": "http://ensar.me/",
+  "keywords": ["prayer", "timetable", "muslim", "muslim prayer", "prayer timetable", "salat", "salah", "jamaat", "jamaah"],
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ench0/prayer-timetable-lib.git"
+  },
+  "engines": {
+    "node": ">= 7"
+  },
   "scripts": {
     "build": "neutrino build",
     "lint": "neutrino lint",
