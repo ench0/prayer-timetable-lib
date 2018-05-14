@@ -240,4 +240,6 @@ function dayCalc (tomorrow = 0, settings = { hijrioffset: 0 }) {
   return { gregorian, hijri, ramadanCountdown }
 }
 
+export default prayersCalc;
+
 export { prayersCalc, dayCalc }
