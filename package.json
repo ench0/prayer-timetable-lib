@@ -13,5 +13,9 @@
     "@neutrinojs/jest": "^8.2.3",
     "@neutrinojs/library": "^8.2.3",
     "neutrino": "^8.2.3"
+  },
+  "dependencies": {
+    "moment-hijri": "^2.0.1",
+    "moment-timezone": "^0.5.17"
   }
 }

@@ -5,9 +5,10 @@ module.exports = {
       eslint: {
         rules: {
           'semi': 'off',
-          'max-len': ["error", { "code": 180 }],
+          'max-len': ["error", { "code": 240 }],
           'brace-style': 0,
-          'no-return-assign': 0
+          'no-return-assign': 0,
+          'no-console': ['error', { 'allow': ['warn', 'error', 'log'] }],
         }
       }
     }],
