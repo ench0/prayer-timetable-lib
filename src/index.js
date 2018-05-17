@@ -164,7 +164,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J1'
     } else if (moment().isBetween(listToday[0].jamaah.time, listToday[1].time)) {
       // ***** fajr jamaah-shurooq *****
-      current = { name: `${listToday[0].name} jamaah`, time: listToday[0].jamaah.time }
+      current = { name: listToday[0].name, time: listToday[0].jamaah.time }
       next = { name: listToday[1].name, time: listToday[1].time }
       list = listToday
       newtomorrow = 0
@@ -185,7 +185,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J4'
     } else if (moment().isBetween(listToday[2].jamaah.time, listToday[3].time)) {
       // ***** dhuhr jamaah-asr *****
-      current = { name: `${listToday[2].name} jamaah`, time: listToday[2].jamaah.time }
+      current = { name: listToday[2].name, time: listToday[2].jamaah.time }
       next = { name: listToday[3].name, time: listToday[3].time }
       list = listToday
       newtomorrow = 0
@@ -199,7 +199,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J6'
     } else if (moment().isBetween(listToday[3].jamaah.time, listToday[4].time)) {
       // ***** asr jamaah-maghrib *****
-      current = { name: `${listToday[3].name} jamaah`, time: listToday[4].jamaah.time }
+      current = { name: listToday[3].name, time: listToday[4].jamaah.time }
       next = { name: listToday[4].name, time: listToday[4].time }
       list = listToday
       newtomorrow = 0
@@ -213,7 +213,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J8'
     } else if (moment().isBetween(listToday[4].jamaah.time, listToday[5].time)) {
       // ***** maghrib jamaah-isha *****
-      current = { name: `${listToday[4].name} jamaah`, time: listToday[4].jamaah.time }
+      current = { name: listToday[4].name, time: listToday[4].jamaah.time }
       next = { name: listToday[5].name, time: listToday[5].time }
       list = listToday
       newtomorrow = 0
@@ -227,7 +227,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J10'
     } else if (moment().isBetween(listToday[5].jamaah.time, moment().endOf('day'))) {
       // ***** isha jamaah-midnight *****
-      current = { name: `${listToday[5].name} jamaah`, time: listToday[5].jamaah.time }
+      current = { name: listToday[5].name, time: listToday[5].jamaah.time }
       next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
       list = listTomorrow
       newtomorrow = 1
