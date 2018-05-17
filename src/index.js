@@ -199,7 +199,7 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
       timePeriod = 'case J6'
     } else if (moment().isBetween(listToday[3].jamaah.time, listToday[4].time)) {
       // ***** asr jamaah-maghrib *****
-      current = { name: listToday[3].name, time: listToday[4].jamaah.time }
+      current = { name: listToday[3].name, time: listToday[3].jamaah.time }
       next = { name: listToday[4].name, time: listToday[4].time }
       list = listToday
       newtomorrow = 0
@@ -236,8 +236,12 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
   }
 
   if (log) {
-    console.log(moment().format('M/D H'), timePeriod, '| current:', current.name, '| next:', next.name, '| tomorrow:', tomorrow)
+    console.log(moment().format('M/D H'), timePeriod, '| current:', current.name, current.time.format('H:mm'), '| next:', next.name, next.time.format('H:mm'), '| tomorrow:', tomorrow)
   }
+
+  // listToday.forEach(function (el) {
+  //   console.log(el.name, ':', el.time.format('H:mm'))
+  // })
 
   if (test) return 'Success!'
   return {
