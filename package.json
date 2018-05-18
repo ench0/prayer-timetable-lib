@@ -1,6 +1,6 @@
 {
   "name": "prayer-timetable-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Prayer timetable calc library.",
   "main": "./lib/index.js",
   "scripts": {
