@@ -93,125 +93,151 @@ function prayersCalc (tomorrow = 0, settings, timetable, jamaahShow = true, join
 
   let timePeriod
 
+  // sort issue when adhan is after iqamah for isha
+  if (jamaahShow && listToday[5].jamaah.time.isBefore(listToday[5].time)) listToday[5].time = listToday[5].jamaah.time
+  if (jamaahShow && listTomorrow[5].jamaah.time.isBefore(listTomorrow[5].time)) listTomorrow[5].time = listTomorrow[5].jamaah.time
+
   if (moment().isBetween(moment().startOf('day'), listToday[0].time)) {
+    // ***** midnight-fajr *****
     newtomorrow = 0
     current = { name: 'midnight', time: moment().startOf('day') }
     next = { name: listToday[0].name, time: listToday[0].time }
     list = listToday
-    timePeriod = 'case 1'
-  } else if (moment().isBetween(listToday[0].time, listToday[1].time)) {
-    // fajr-shurooq
-    // jamaah
-    if (jamaahShow === true && moment().isBetween(listToday[0].time, listToday[0].jamaah.time)) {
-      next = { name: `${listToday[0].name} jamaah`, time: listToday[0].jamaah.time }
-    } else {
+    timePeriod = 'case 0'
+  } else if (!jamaahShow) {
+    /**************************
+     *     NOT JAMAAHSHOW     *
+     * ********************** */
+    if (moment().isBetween(listToday[0].time, listToday[1].time)) {
+      // ***** fajr-shurooq *****
+      current = { name: listToday[0].name, time: listToday[0].time }
       next = { name: listToday[1].name, time: listToday[1].time }
-    }
-    newtomorrow = 0
-    current = { name: listToday[0].name, time: listToday[0].time }
-    list = listToday
-    timePeriod = 'case 2'
-  } else if (moment().isBetween(listToday[1].time, listToday[2].time)) {
-    // shurooq-dhuhr
-    newtomorrow = 0
-    current = { name: listToday[1].name, time: listToday[1].time }
-    next = { name: listToday[2].name, time: listToday[2].time }
-    list = listToday
-    timePeriod = 'case 3'
-  } else if (moment().isBetween(listToday[2].time, listToday[3].time)) {
-    // dhuhr-asr
-    // jamaah
-    if (jamaahShow === true && moment().isBetween(listToday[2].time, listToday[2].jamaah.time)) {
-      next = { name: `${listToday[2].name} jamaah`, time: listToday[2].jamaah.time }
-    } else {
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case N1'
+    } else if (moment().isBetween(listToday[1].time, listToday[2].time)) {
+      // ***** shurooq-dhuhr *****
+      current = { name: listToday[1].name, time: listToday[1].time }
+      next = { name: listToday[2].name, time: listToday[2].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case N2'
+    } else if (moment().isBetween(listToday[2].time, listToday[3].time)) {
+      // ***** dhuhr-asr *****
+      current = { name: listToday[2].name, time: listToday[2].time }
       next = { name: listToday[3].name, time: listToday[3].time }
-    }
-    newtomorrow = 0
-    current = { name: listToday[2].name, time: listToday[2].time }
-    list = listToday
-    timePeriod = 'case 4'
-  } else if (moment().isBetween(listToday[3].time, listToday[4].time)) {
-    // asr-maghrib
-    // jamaah
-    if (jamaahShow === true && moment().isBetween(listToday[3].time, listToday[3].jamaah.time)) {
-      next = { name: `${listToday[3].name} jamaah`, time: listToday[3].jamaah.time }
-    } else {
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case N3'
+    } else if (moment().isBetween(listToday[3].time, listToday[4].time)) {
+      // ***** asr-maghrib *****
+      current = { name: listToday[3].name, time: listToday[3].time }
       next = { name: listToday[4].name, time: listToday[4].time }
-    }
-    newtomorrow = 0
-    current = { name: listToday[3].name, time: listToday[3].time }
-    list = listToday
-    timePeriod = 'case 5'
-  } else if (moment().isBetween(listToday[4].time, listToday[5].time)) {
-    // maghrib-isha
-    // if joined
-    if (jamaahShow === true && join === '1' && moment().isBetween(listToday[4].time, listToday[4].jamaah.time)) {
-      next = { name: `${listToday[4].name} jamaah`, time: listToday[4].jamaah.time }
-      newtomorrow = 0
       list = listToday
-      timePeriod = 'case 6a'
-    } else if (jamaahShow === true && join === '1') {
-      next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
-      newtomorrow = 1
-      list = listTomorrow
-      timePeriod = 'case 6b'
-    } else if (jamaahShow === true && moment().isBetween(listToday[4].time, listToday[4].jamaah.time)) {
-      // jamaah
-      next = { name: `${listToday[4].name} jamaah`, time: listToday[4].jamaah.time }
       newtomorrow = 0
-      list = listToday
-    } else {
+      timePeriod = 'case N4'
+    } else if (moment().isBetween(listToday[4].time, listToday[5].time)) {
+      // ***** maghrib-isha *****
+      current = { name: listToday[4].name, time: listToday[4].time }
       next = { name: listToday[5].name, time: listToday[5].time }
-      newtomorrow = 0
       list = listToday
-    }
-    current = { name: listToday[4].name, time: listToday[4].time }
-
-    timePeriod = 'case 6c'
-  } else if (moment().isBetween(listToday[5].time, moment().endOf('day'))) {
-    // isha-midnight
-    // if joined
-    if (jamaahShow === true && join === '1') {
-      next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
-      newtomorrow = 1
-      list = listTomorrow
-      timePeriod = 'case 7a'
-    } else if (jamaahShow === true && join !== '1' && moment().isBetween(listToday[5].time, listToday[5].jamaah.time)) {
-      // jamaah
-      next = { name: `${listToday[5].name} jamaah`, time: listToday[5].jamaah.time }
       newtomorrow = 0
-      list = listToday
-      timePeriod = 'case 7b'
-    } else {
-      newtomorrow = 1
-      list = listTomorrow
+      timePeriod = 'case N5'
+    } else if (moment().isBetween(listToday[5].time, moment().endOf('day'))) {
+      // ***** isha-midnight *****
+      current = { name: listToday[5].name, time: listToday[5].time }
       next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
-      timePeriod = 'case 7c'
+      list = listTomorrow
+      newtomorrow = 1
+      timePeriod = 'case N6'
     }
-
-    current = { name: listToday[5].name, time: listToday[5].time }
   } else {
-    newtomorrow = 1
-    current = { name: listToday[5].name, time: listToday[5].time }// .clone().add(-1, 'day')}
-    list = listTomorrow
-    next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
-    timePeriod = 'case 8'
+    /**************************
+     *       JAMAAHSHOW       *
+     * ********************** */
+    if (moment().isBetween(listToday[0].time, listToday[0].jamaah.time)) {
+      // ***** fajr-fajr jamaah *****
+      current = { name: listToday[0].name, time: listToday[0].time }
+      next = { name: `${listToday[0].name} jamaah`, time: listToday[0].jamaah.time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J1'
+    } else if (moment().isBetween(listToday[0].jamaah.time, listToday[1].time)) {
+      // ***** fajr jamaah-shurooq *****
+      current = { name: `${listToday[0].name} jamaah`, time: listToday[0].jamaah.time }
+      next = { name: listToday[1].name, time: listToday[1].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J2'
+    } else if (moment().isBetween(listToday[1].time, listToday[2].time)) {
+      // ***** shurooq-dhuhr *****
+      current = { name: listToday[1].name, time: listToday[1].time }
+      next = { name: listToday[2].name, time: listToday[2].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J3'
+    } else if (moment().isBetween(listToday[2].time, listToday[2].jamaah.time)) {
+      // ***** dhuhr-dhuhr jamaah *****
+      current = { name: listToday[2].name, time: listToday[2].time }
+      next = { name: `${listToday[2].name} jamaah`, time: listToday[2].jamaah.time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J4'
+    } else if (moment().isBetween(listToday[2].jamaah.time, listToday[3].time)) {
+      // ***** dhuhr jamaah-asr *****
+      current = { name: `${listToday[2].name} jamaah`, time: listToday[2].jamaah.time }
+      next = { name: listToday[3].name, time: listToday[3].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J5'
+    } else if (moment().isBetween(listToday[3].time, listToday[3].jamaah.time)) {
+      // ***** asr-asr jamaah *****
+      current = { name: listToday[3].name, time: listToday[3].time }
+      next = { name: `${listToday[3].name} jamaah`, time: listToday[3].jamaah.time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J6'
+    } else if (moment().isBetween(listToday[3].jamaah.time, listToday[4].time)) {
+      // ***** asr jamaah-maghrib *****
+      current = { name: `${listToday[3].name} jamaah`, time: listToday[4].jamaah.time }
+      next = { name: listToday[4].name, time: listToday[4].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J7'
+    } else if (moment().isBetween(listToday[4].time, listToday[4].jamaah.time)) {
+      // ***** maghrib-maghrib jamaah *****
+      current = { name: listToday[4].name, time: listToday[4].time }
+      next = { name: `${listToday[4].name} jamaah`, time: listToday[4].jamaah.time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J8'
+    } else if (moment().isBetween(listToday[4].jamaah.time, listToday[5].time)) {
+      // ***** maghrib jamaah-isha *****
+      current = { name: `${listToday[4].name} jamaah`, time: listToday[4].jamaah.time }
+      next = { name: listToday[5].name, time: listToday[5].time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J9'
+    } else if (moment().isBetween(listToday[5].time, listToday[5].jamaah.time)) {
+      // ***** isha-isha jamaah *****
+      current = { name: listToday[5].name, time: listToday[5].time }
+      next = { name: `${listToday[5].name} jamaah`, time: listToday[5].jamaah.time }
+      list = listToday
+      newtomorrow = 0
+      timePeriod = 'case J10'
+    } else if (moment().isBetween(listToday[5].jamaah.time, moment().endOf('day'))) {
+      // ***** isha jamaah-midnight *****
+      current = { name: `${listToday[5].name} jamaah`, time: listToday[5].jamaah.time }
+      next = { name: listTomorrow[0].name, time: listTomorrow[0].time }
+      list = listTomorrow
+      newtomorrow = 1
+      timePeriod = 'case J11'
+    }
   }
 
   if (log) {
     console.log(moment().format('M/D H'), timePeriod, '| current:', current.name, '| next:', next.name, '| tomorrow:', tomorrow)
   }
-
-  // console.log(
-  //     'now:', moment().format("DD/MM - H:mm"),
-  //     '\nfajr:', listToday[0].time.format("DD/MM - H:mm"),
-  //     '\nshurooq:', listToday[1].time.format("DD/MM - H:mm"),
-  //     '\ndhuhr:', listToday[2].time.format("DD/MM - H:mm"),
-  //     '\nmaghrib:', listToday[4].time.format("DD/MM - H:mm"),
-  //     '\nisha:', listToday[5].time.format("DD/MM - H:mm"),
-  //     '\ncurrent:', current.time.format("DD/MM - H:mm"),
-  //     '\nnext:', next.time.format("DD/MM - H:mm")
-  // )
 
   if (test) return 'Success!'
   return {
